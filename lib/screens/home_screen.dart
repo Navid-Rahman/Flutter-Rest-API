@@ -25,29 +25,32 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Rest API'),
       ),
-      body: ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          final user = users[index];
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (context, index) {
+            final user = users[index];
 
-          //final email = user.email;
-          final phone = user.phone;
-          //final gender = user.gender;
-          //final nat = user.nat;
-          //final cell = user.cell;
-          // final color = user.gender == 'male' ? Colors.blue : Colors.green;
-          final picture = user.picture;
-          return ListTile(
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image(
-                image: NetworkImage(picture.thumbnail),
+            final email = user.email;
+            final phone = user.phone;
+            final gender = user.gender;
+            final nat = user.nat;
+            final cell = user.cell;
+            final color = user.gender == 'male' ? Colors.blue : Colors.green;
+            final picture = user.picture;
+            return ListTile(
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image(
+                  image: NetworkImage(picture.thumbnail),
+                ),
               ),
-            ),
-            title: Text(user.fullName),
-            subtitle: Text(phone),
-          );
-        },
+              title: Text(user.fullName),
+              subtitle: Text(phone),
+            );
+          },
+        ),
       ),
     );
   }
