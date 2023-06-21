@@ -36,8 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
           //final nat = user.nat;
           //final cell = user.cell;
           // final color = user.gender == 'male' ? Colors.blue : Colors.green;
-          // final imageURL = user['picture']['thumbnail'];
+          final picture = user.picture;
           return ListTile(
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image(
+                image: NetworkImage(picture.thumbnail),
+              ),
+            ),
             title: Text(user.fullName),
             subtitle: Text(phone),
           );
