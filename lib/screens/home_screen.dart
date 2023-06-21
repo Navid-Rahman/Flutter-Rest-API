@@ -30,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) {
           final user = users[index];
 
-          final email = user.email;
+          //final email = user.email;
           final phone = user.phone;
-          final gender = user.gender;
-          final nat = user.nat;
-          final cell = user.cell;
+          //final gender = user.gender;
+          //final nat = user.nat;
+          //final cell = user.cell;
           // final color = user.gender == 'male' ? Colors.blue : Colors.green;
           // final imageURL = user['picture']['thumbnail'];
           return ListTile(
