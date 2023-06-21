@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rest_api/model/user.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<dynamic> users = [];
+  List<User> users = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: users.length,
         itemBuilder: (context, index) {
           final user = users[index];
-          final firstName = user['name']['first'];
-          final lastName = user['name']['last'];
-          final email = user['email'];
-          final imageURL = user['picture']['thumbnail'];
+          // final firstName = user['name']['first'];
+          // final lastName = user['name']['last'];
+          final email = user.email;
+          final phone = user.phone;
+          final gender = user.gender;
+          final nat = user.nat;
+          final cell = user.cell;
+          final color = user.gender == 'male' ? Colors.blue : Colors.green;
+          // final imageURL = user['picture']['thumbnail'];
           return ListTile(
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image(
-                image: NetworkImage(imageURL),
-              ),
-            ),
-            title: Text('$firstName $lastName'),
-            subtitle: Text(email),
+            title: Text(email),
+            tileColor: color,
+            subtitle: Text(cell),
           );
         },
       ),
@@ -53,8 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
     final response = await http.get(uri);
     final body = response.body;
     final jsonData = jsonDecode(body);
+    final results = jsonData['results'] as List<dynamic>;
+    final transformed = results.map((e) {
+      return User(
+        gender: e['gender'],
+        email: e['email'],
+        cell: e['cell'],
+        nat: e['nat'],
+        phone: e['phone'],
+      );
+    }).toList();
     setState(() {
-      users = jsonData['results'];
+      users = transformed;
     });
 
     print('fetchUsers completed');
